@@ -1,0 +1,16 @@
+service-rating-app:
+  container_name: rating-app
+  build: .
+  ports:
+   - "10020:8000"
+  environment:
+   - DEBUG=1
+  volumes:
+   - .:/opt/rating_service/repository
+  links:
+   - service-rating-redis:redis
+  command:
+   - "--reload"
+service-rating-redis:
+  container_name: rating-redis
+  image: redis

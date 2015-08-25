@@ -1,0 +1,6 @@
+gevent
+gunicorn
+json-rpc
+redis
+werkzeug
+wtforms
