@@ -1,5 +1,6 @@
 gevent
 gunicorn
+hiredis
 json-rpc
 redis
 werkzeug

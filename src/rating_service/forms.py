@@ -11,19 +11,59 @@ def range_filter(value):
         raise wtforms.ValidationError('score_range must be in format [n1]:[n2] where n1 < n2')
 
 
-class DoVoteForm(wtforms.Form):
+
+class CommonForm(wtforms.Form):
     user_id = wtforms.StringField\
         ( validators=
-          [ wtforms.validators.Regexp(r'[A-Za-z0-9:_-]+')
+          [ wtforms.validators.Regexp
+            ( r'[A-Za-z0-9:_-]+'
+            , message='value must satisfy regex "[A-Za-z0-9_-]+"'
+            )
           , wtforms.validators.Required()
           ]
+        , filters=
+          [ str
+          , ]
         , )
     resource_id = wtforms.StringField\
         ( validators=
-          [ wtforms.validators.Regexp(r'[A-Za-z0-9_-]+')
+          [ wtforms.validators.Regexp
+            ( r'[A-Za-z0-9_-]+'
+            , message='value must satisfy regex "[A-Za-z0-9_-]+"'
+            )
           , wtforms.validators.Required()
           ]
+        , filters=
+          [ str
+          , ]
         )
+    score_range = wtforms.StringField\
+        ( validators=
+          [ wtforms.validators.Regexp
+            ( r'[-]?[0-9]+:[1-9]+'
+            , message='value must satisfy regex "[-]?[0-9]+:[1-9]+"'
+            )
+          , wtforms.validators.Required()
+          ]
+        , filters=
+          [ str
+          , ]
+        , )
+    namespace = wtforms.StringField\
+        ( validators=
+          [ wtforms.validators.Regexp
+            ( r'[a-z_]+'
+            , message='value must satisfy regex "[a-z_]+"'
+            )
+          , wtforms.validators.Required()
+          ]
+        , filters=
+          [ str
+          , ]
+        , )
+
+
+class VoteForm(CommonForm):
     score = wtforms.IntegerField\
         ( validators=
           [ wtforms.validators.Required()
@@ -32,21 +72,9 @@ class DoVoteForm(wtforms.Form):
           [ range_filter
           , ]
         )
-    score_range = wtforms.StringField\
-        ( validators=
-          [ wtforms.validators.Regexp(r'[-]?[0-9]+:[1-9]+')
-          , wtforms.validators.Required()
-          ]
-        , )
-    namespace = wtforms.StringField\
-        ( validators=
-          [ wtforms.validators.Regexp(r'[a-z_]+')
-          , wtforms.validators.Required()
-          ]
-        , )
 
     def validate(self):
-        result = super(DoVoteForm, self).validate()
+        result = super(VoteForm, self).validate()
         score_range = range_filter(self['score_range'].data)
         score = self['score'].data
 
