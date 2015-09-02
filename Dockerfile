@@ -10,6 +10,6 @@ ENV PYTHONPATH="${PYTHONPATH}:${APP_REPOSITORY}/src"
 
 COPY . ${APP_REPOSITORY}
 
-EXPOSE 8000
+EXPOSE 80
 
-ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000", "-k", "gevent", "rating_service.application"]
+ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:80", "-k", "gevent", "rating_service.application"]
