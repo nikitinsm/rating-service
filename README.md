@@ -63,7 +63,7 @@ json-rpc 2.0
       , "entry/1"           // id ресурса
       , 1                   // оценка
       , "-1:1"              // Диапазон
-      , "emias-faq"         // Пространство имен
+      , "service-faq"         // Пространство имен
       ]
     , "jsonrpc": "2.0"
     , "id": 0
@@ -92,7 +92,7 @@ json-rpc 2.0
       [ 1
       , "entry/1"
       , "-1:1"
-      , "emias_faq"
+      , "service-faq"
       ]
     , "jsonrpc": "2.0"
     , "id": 0
@@ -125,7 +125,7 @@ json-rpc 2.0
       [ 1
       , "entry/1"
       , "-1:1"
-      , "emias_faq"
+      , "service-faq"
       ]
     , "jsonrpc": "2.0"
     , "id": 0
