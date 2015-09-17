@@ -11,7 +11,6 @@ def range_filter(value):
         raise wtforms.ValidationError('score_range must be in format [n1]:[n2] where n1 < n2')
 
 
-
 class CommonForm(wtforms.Form):
     user_id = wtforms.StringField\
         ( validators=
