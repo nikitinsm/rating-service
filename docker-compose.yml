@@ -2,7 +2,7 @@ service-rating-app:
   container_name: rating-app
   build: .
   ports:
-   - "10020:8000"
+   - "10020:80"
   environment:
    - DEBUG=1
   volumes:

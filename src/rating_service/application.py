@@ -65,7 +65,7 @@ def do_vote\
             return True
         else:
             return False
-dispatcher.add_method(do_vote, name='do.vote')
+dispatcher.add_method(do_vote, name='vote')
 
 
 def do_vote_cancel\
@@ -100,7 +100,7 @@ def do_vote_cancel\
             # Удаляем информацию о голосе пользователя
             storage.delete(user_key)
     return True
-dispatcher.add_method(do_vote_cancel, name='do.vote.cancel')
+dispatcher.add_method(do_vote_cancel, name='cancel_vote')
 
 
 def get_rating\
@@ -134,7 +134,7 @@ def get_rating\
           }
         , 'user': int(Storage().get(make_key(key, user_id, 'score')) or 0)
         }
-dispatcher.add_method(get_rating, name='get.rating')
+dispatcher.add_method(get_rating, name='get_rating')
 
 
 @Request.application
