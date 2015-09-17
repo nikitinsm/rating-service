@@ -123,9 +123,6 @@ def get_rating\
     score_count = int(Storage().get(make_key(key, 'count')) or 0)
     score_sum = int(Storage().get(make_key(key, 'sum')) or 0)
 
-    print locals()
-
-
     return \
         { 'score':
           { 'count': score_count or 0
