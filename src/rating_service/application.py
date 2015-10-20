@@ -127,7 +127,7 @@ def get_rating\
         { 'score':
           { 'count': score_count or 0
           , 'sum': score_sum or 0
-          , 'avg': float(score_sum) / (score_count or 0)
+          , 'avg': float(score_sum) / score_count if score_count else 0
           }
         , 'user': int(Storage().get(make_key(key, user_id, 'score')) or 0)
         }
