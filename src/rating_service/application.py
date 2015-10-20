@@ -140,4 +140,10 @@ def application(request):
         ( request.data
         , dispatcher
         )
-    return Response(response.json, mimetype='application/json')
+    return Response\
+        ( response.json
+        , mimetype='application/json'
+        , headers=
+          { 'Access-Control-Allow-Origin': '*'
+          , 'Access-Control-Allow-Headers': 'Content-Type'
+        } )
