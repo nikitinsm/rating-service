@@ -61,6 +61,9 @@ class RedisStorage(object):
     def delete(self, key):
         self.get_redis().delete(key)
 
+    def watch(self, key):
+        self.pipeline.watch(key)
+
     def __enter__(self):
         self.pipeline = self.redis.pipeline()
         return self

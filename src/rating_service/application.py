@@ -38,12 +38,14 @@ def do_vote\
 
     # Если пользователь не голосовал
     user_key = make_key(key, user_id, 'score')
-    user_data = int(Storage().get(user_key) or 0)
-    with Storage() as storage:
-        storage.watch(make_key(key, 'count'))
-        storage.watch(make_key(key, 'sum'))
+    user_score = int(Storage().get(user_key) or 0)
 
-        if user_data != score:
+
+    with Storage() as storage:
+        storage.watch(user_key)
+
+        if user_score != score:
+            # Отменяем голосование
             do_vote_cancel\
                 ( user_id
                 , resource_id
@@ -52,7 +54,6 @@ def do_vote\
                 )
             user_data = None
 
-        if not user_data:
             # Инкрементируем кол-во голосов
             storage.increment\
                 ( make_key(key, 'count')
@@ -85,15 +86,15 @@ def do_vote_cancel\
 
     key = make_key(namespace, score_range, resource_id)
     user_key = make_key(key, user_id, 'score')
-    score = Storage().get(user_key)
 
     # Получем кол-во голосов пользователя
     with Storage() as storage:
-        storage.watch(make_key(key, 'count'))
-        storage.watch(make_key(key, 'sum'))
+        storage.watch(user_key)
 
-        if score is not None:
-            # Декреметируем кол-во голосов
+        user_score = Storage().get(user_key)
+
+        if user_score is not None:
+            # Декрементируем кол-во голосов
             storage.decrement\
                 ( make_key(key, 'count')
                 , 1
@@ -101,7 +102,7 @@ def do_vote_cancel\
             # Уменьшаем общую сумму голосов
             storage.decrement\
                 ( make_key(key, 'sum')
-                , score
+                , user_score
                 )
             # Удаляем информацию о голосе пользователя
             storage.delete(user_key)
