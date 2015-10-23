@@ -40,6 +40,9 @@ def do_vote\
     user_key = make_key(key, user_id, 'score')
     user_data = int(Storage().get(user_key) or 0)
     with Storage() as storage:
+        storage.watch(make_key(key, 'count'))
+        storage.watch(make_key(key, 'sum'))
+
         if user_data != score:
             do_vote_cancel\
                 ( user_id
@@ -86,6 +89,9 @@ def do_vote_cancel\
 
     # Получем кол-во голосов пользователя
     with Storage() as storage:
+        storage.watch(make_key(key, 'count'))
+        storage.watch(make_key(key, 'sum'))
+
         if score is not None:
             # Декреметируем кол-во голосов
             storage.decrement\
