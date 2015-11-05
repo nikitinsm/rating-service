@@ -80,3 +80,18 @@ class VoteForm(CommonForm):
         if not score_range[0] <= score <= score_range[1]:
             raise wtforms.ValidationError('Score %s is out of range %s' % (score, self['score_range'].data))
         return result
+
+
+class GetRatingForm(CommonForm):
+    user_id = wtforms.StringField\
+        ( validators=
+          [ wtforms.validators.Regexp
+            ( r'[A-Za-z0-9:_-]+'
+            , message='value must satisfy regex "[A-Za-z0-9_-]+"'
+            )
+          , wtforms.validators.Optional()
+          ]
+        , filters=
+          [ str
+          , ]
+        , )

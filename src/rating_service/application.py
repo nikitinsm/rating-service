@@ -118,7 +118,7 @@ def get_rating\
     ):
 
     data = MultiDict(locals().copy())
-    form = forms.CommonForm(data)
+    form = forms.GetRatingForm(data)
     if not form.validate():
         return {'error': form.errors}
 
@@ -130,13 +130,17 @@ def get_rating\
     score_count = int(Storage().get(make_key(key, 'count')) or 0)
     score_sum = int(Storage().get(make_key(key, 'sum')) or 0)
 
+    user_result = 0
+    if user_id:
+        user_result = int(Storage().get(make_key(key, user_id, 'score')) or 0)
+
     return \
         { 'score':
           { 'count': score_count or 0
           , 'sum': score_sum or 0
           , 'avg': float(score_sum) / score_count if score_count else 0
           }
-        , 'user': int(Storage().get(make_key(key, user_id, 'score')) or 0)
+        , 'user': user_result
         }
 dispatcher.add_method(get_rating, name='get_rating')
 
