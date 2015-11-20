@@ -9,8 +9,7 @@ service-rating-app:
    - .:/opt/rating_service/repository
   links:
    - service-rating-redis:redis
-  command:
-   - "--reload"
+  command: "--reload --access-logfile '-' --error-logfile '-'"
 service-rating-redis:
   container_name: rating-redis
   image: redis

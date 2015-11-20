@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import logging
+from gunicorn import glogging
 from werkzeug.datastructures import MultiDict
 from werkzeug.wrappers import Request, Response
 from jsonrpc import JSONRPCResponseManager, dispatcher
