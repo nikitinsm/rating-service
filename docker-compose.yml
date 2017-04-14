@@ -5,6 +5,7 @@ service-rating-app:
    - "10020:80"
   environment:
    - DEBUG=1
+   - REDIS_HOST=redis
   volumes:
    - .:/opt/rating_service/repository
   links:
