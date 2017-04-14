@@ -35,9 +35,9 @@ class RedisStorage(object):
 
     pipeline = None
     connection = redis.ConnectionPool\
-        ( host=os.environ.get('REDIS_PORT_6379_TCP_ADDR')
-        , port=6379
-        , db=0
+        ( host=os.environ.get('REDIS_HOST')
+        , port=os.environ.get('REDIS_PORT')
+        , db=int(os.environ.get('REDIS_DB'))
         )
     redis = redis.Redis\
         ( connection_pool=connection
